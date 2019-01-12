@@ -1,0 +1,8 @@
+{
+  "generator-packer": {
+    "promptValues": {
+      "projectName": "jenkins",
+      "imageName": "Jenkins on Centos7"
+    }
+  }
+}

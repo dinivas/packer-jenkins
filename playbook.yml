@@ -1,0 +1,6 @@
+---
+- name: Provision Image Jenkins on Centos7 to build
+  hosts: packer-jenkins
+  become: true
+  roles:
+    - geerlingguy.jenkins
