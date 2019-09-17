@@ -3,4 +3,11 @@
   hosts: packer-jenkins
   become: true
   roles:
-    - geerlingguy.jenkins
+    - role: geerlingguy.jenkins
+      jenkins_plugin_timeout: 90
+      jenkins_plugins:
+        - git
+        - sonar
+        - blueocean
+        - ssh-agent
+        - pipeline-maven
