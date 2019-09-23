@@ -11,3 +11,4 @@
         - blueocean
         - ssh-agent
         - pipeline-maven
+        - keycloak
