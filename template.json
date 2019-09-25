@@ -4,7 +4,7 @@
     "ansible_roles_path": "galaxy_roles",
     "flavor": "m1.small",
     "image_name": "Dinivas Jenkins Master",
-    "image_tags": "dinivas,ci-cd,jenkins, jenkins-master",
+    "image_tags": "dinivas,ci-cd,jenkins,jenkins-master",
     "image_visibility": "public"
   },
   "builders": [{
@@ -15,7 +15,8 @@
     "ssh_username": "{{user `ssh_user` }}",
     "image_name": "{{user `image_name` }}",
     "image_tags": "{{user `image_tags` }}",
-    "instance_name": "{{user `instance_name`}}"
+    "instance_name": "{{user `instance_name`}}",
+    "networks": "{{user `network_id`}}"
   }],
   "provisioners": [{
     "type": "ansible",
