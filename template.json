@@ -16,7 +16,8 @@
     "image_name": "{{user `image_name` }}",
     "image_tags": "{{user `image_tags` }}",
     "instance_name": "{{user `instance_name`}}",
-    "networks": "{{user `network_id`}}"
+    "networks": "{{user `network_id`}}",
+    "floating_ip_network": "{{user `floating_ip_network`}}"
   }],
   "provisioners": [{
     "type": "ansible",
