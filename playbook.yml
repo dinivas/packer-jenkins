@@ -3,7 +3,9 @@
   hosts: packer-jenkins
   become: true
   roles:
-    - role: geerlingguy.jenkins
+    - role: geerlingguy.repo-epel
+    - role: geerlingguy.pip
+    - role: dinivas.jenkins
       jenkins_plugin_timeout: 90
       jenkins_plugins:
         - git
