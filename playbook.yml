@@ -13,3 +13,4 @@
         - ssh-agent
         - pipeline-maven
         - keycloak
+        - role-strategy
