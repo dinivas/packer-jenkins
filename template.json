@@ -3,32 +3,51 @@
     "instance_name": "packer-jenkins",
     "ansible_roles_path": "galaxy_roles",
     "flavor": "m1.small",
-    "image_name": "Dinivas Jenkins Master",
+    "image_name": "Dinivas Jenkins Master {{isotime \"2006-01-02\"}}",
     "image_tags": "dinivas,ci-cd,jenkins,jenkins-master",
     "image_visibility": "public"
   },
-  "builders": [{
-    "type": "openstack",
-    "source_image": "{{user `source_image_id`}}",
-    "flavor": "{{user `flavor`}}",
-    "image_visibility": "{{user `image_visibility` }}",
-    "ssh_username": "{{user `ssh_user` }}",
-    "image_name": "{{user `image_name` }}",
-    "image_tags": "{{user `image_tags` }}",
-    "instance_name": "{{user `instance_name`}}",
-    "networks": "{{user `network_id`}}",
-    "floating_ip_network": "{{user `floating_ip_network`}}"
-  }],
-  "provisioners": [{
-    "type": "ansible",
-    "ansible_env_vars": [
-      "ANSIBLE_ROLES_PATH={{user `ansible_roles_path` }}"
-    ],
-    "user": "{{user `ssh_user` }}",
-    "playbook_file": "./playbook.yml",
-    "galaxy_file": "requirements.yml",
-    "roles_path": "{{user `ansible_roles_path` }}",
-    "extra_arguments": [],
-    "host_alias": "{{user `instance_name`}}"
-  }]
+  "builders": [
+    {
+      "type": "openstack",
+      "source_image": "{{user `source_image_id`}}",
+      "flavor": "{{user `flavor`}}",
+      "image_visibility": "{{user `image_visibility` }}",
+      "ssh_username": "{{user `ssh_user` }}",
+      "image_name": "{{user `image_name` }}",
+      "image_tags": "{{user `image_tags` }}",
+      "instance_name": "{{user `instance_name`}}",
+      "networks": "{{user `network_id`}}",
+      "floating_ip_network": "{{user `floating_ip_network`}}"
+    },
+    {
+      "type": "digitalocean",
+      "image": "{{user `source_image_name`}}",
+      "region": "{{user `region` }}",
+      "size": "{{user `flavor` }}",
+      "ssh_username": "{{user `ssh_user` }}",
+      "snapshot_name": "{{user `image_name` }}",
+      "tags": "{{user `image_tags` }}",
+      "droplet_name": "{{user `instance_name`}}"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "ansible",
+      "ansible_env_vars": ["ANSIBLE_ROLES_PATH={{user `ansible_roles_path` }}"],
+      "user": "{{user `ssh_user` }}",
+      "playbook_file": "./playbook.yml",
+      "galaxy_file": "requirements.yml",
+      "roles_path": "{{user `ansible_roles_path` }}",
+      "extra_arguments": [],
+      "host_alias": "{{user `instance_name`}}"
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "manifest",
+      "output": "manifest.json",
+      "strip_path": true
+    }
+  ]
 }
